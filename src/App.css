@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("https://source.unsplash.com/1600x900/?number") no-repeat;
+  background-size: cover;
 }
 
 .App-logo {
