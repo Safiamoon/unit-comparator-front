@@ -37,7 +37,16 @@ body .btn{
 #form-result{
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
-    min-width: 100px;
-    min-height: 50px;
+    min-width: 120px;
+    min-height: 37px;
     display: flex;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #b3cfea;
+}
+
+.card{
+    padding: 20px;
+    opacity: 0.9;
 }
