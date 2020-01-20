@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/flex" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/doctrine/lexer" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/mime" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/http-foundation" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/routing" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/doctrine/annotations" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/polyfill-mbstring" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/polyfill-intl-idn" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/polyfill-php73" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/composer" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/polyfill-php72" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/filesystem" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/cache-contracts" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/var-dumper" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/http-kernel" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/config" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/error-handler" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/psr/cache" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/psr/log" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/psr/container" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/event-dispatcher" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/framework-bundle" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/cache" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/event-dispatcher-contracts" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/dependency-injection" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/var-exporter" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/finder" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/debug" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/service-contracts" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/nikic/php-parser" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/yaml" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/dotenv" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/console" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/nelmio/cors-bundle" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/maker-bundle" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/doctrine/inflector" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/process" />
+      <path value="C:/wamp64/www/unit-comparator/vendor/symfony/web-server-bundle" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="7.1" />
+</project>
