@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 
 
+=======
+## Description du projet
+
+Ce projet sert de Front-End au projet : https://github.com/Mow69/unit-comparator-php.
+Les remarques, bugs, demandes de changements se font sur le repository du projet ci-dessus.
+
+
+## infos
+>>>>>>> origin
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
