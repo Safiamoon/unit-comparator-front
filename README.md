@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-
-=======
 ## Description du projet
 
 Ce projet sert de Front-End au projet : https://github.com/Mow69/unit-comparator-php.
