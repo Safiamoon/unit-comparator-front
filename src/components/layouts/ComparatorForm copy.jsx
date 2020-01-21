@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { apiConvert, apiUnitsDisplay } from "../../Utils";
 import Select from "react-select";
+import Axios from 'axios';
+import { apiUnitsUrl } from '../../constants';
 
 const options = [];
 
@@ -14,37 +16,43 @@ const ComparatorForm = ({ handleResultData }) => {
         setReactSelectValue({ selectedOption });
     }
 
-    
+    /* const unitsDisplay = async () => {
+        try {
+            const apiResponse = await apiUnitsDisplay;
+
+            if (apiResponse.status >= 200 && apiResponse.status < 400) {
+
+                const jsonApiResponse = await apiResponse.json();
+
+                console.log("jsonResponse.result", jsonApiResponse.result);
+
+                jsonApiResponse.result.map(unitsPeer => {
+                    console.log("unitsPeer", unitsPeer);
+                    options.push({ value: unitsPeer.inUnit, label: unitsPeer.inUnit })
+                });
+            }
+
+        } catch (e) {
+            setError("apiServer", "connection", "Une erreur est survenue");
+        }
+    } */
 
     // Similaire à componentDidMount et componentDidUpdate :
     useEffect(() => {
-        const unitsDisplay = async () => {
-            try {
-                const apiResponse = await apiUnitsDisplay;
-    
+        Axios.get(apiUnitsUrl)
+            .then(({ apiResponse }) => {
                 console.log("apiResponse", apiResponse);
-    
-                if (apiResponse.status >= 200 && apiResponse.status < 400) {
-    
-                    const jsonApiResponse = await apiResponse.json();
-    
-                    console.log("jsonResponse.result", jsonApiResponse.result);
-    
-                    jsonApiResponse.result.map(unitsPeer => {
-                        console.log("unitsPeer", unitsPeer);
-                        options.push({ value: unitsPeer.inUnit, label: unitsPeer.inUnit })
-                    });
-                }
-    
-            } catch (e) {
-                setError("apiServer", "connection", "Une erreur est survenue");
-            }
-        }
-    });
+                return apiResponse.json();
+            })
+            .then(({ result }) => {
+                console.log("jsonResponse.result", result);
 
-    React.useEffect(() => {
-        register({ name: "reactSelect" }); // custom register react-select 
-    }, [register]);
+                result.map(unitsPeer => {
+                    console.log("unitsPeer", unitsPeer);
+                    options.push({ value: unitsPeer.inUnit, label: unitsPeer.inUnit })
+                });
+            });;
+    }, []);
 
     const onSubmit = async (data) => {
         console.log("données :", data);
@@ -65,6 +73,10 @@ const ComparatorForm = ({ handleResultData }) => {
             setError("apiServer", "connection", "Une erreur est survenue");
         }
     };
+
+    React.useEffect(() => {
+        register({ name: "reactSelect" }); // custom register react-select 
+    }, [register])
 
     return (
         <>

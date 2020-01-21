@@ -1,8 +1,9 @@
-import {apiUrl} from "./constants";
+import {apiConvertUrl, apiUnitsUrl} from "./constants";
+import Axios from "axios";
 
-export const connect = (data) => {
+export const apiConvert = (data) => {
     const request = new Request(
-        `${apiUrl}`,
+        `${apiConvertUrl}`,
         {
             method: 'POST',
             body: JSON.stringify(data),
@@ -14,3 +15,18 @@ export const connect = (data) => {
 
     return fetch(request);
 }
+
+export const apiUnitsDisplay = () => {
+    const request = new Request(
+        `${apiUnitsUrl}`,
+        {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+        }
+    );
+
+    return fetch(request);
+}
+
