@@ -1,7 +1,5 @@
 import React from 'react';
 import {useForm} from 'react-hook-form';
-import Axios from "axios";
-import {apiUrl} from "../../constants"
 import {connect} from "../../Utils";
 
 const ComparatorForm = ({handleResultData}) => {
@@ -10,20 +8,17 @@ const ComparatorForm = ({handleResultData}) => {
         const onSubmit = async (data) => {
             console.log("données :", data);
 
-            // Axios.post(apiUrl, data)
-            //     .then(function (response) {
-            //         console.log("response", response);
-            //     })
-            //     .catch(function (error) {
-            //         console.log(error);
-            //     });
-            //
             try {
-                const response = await connect(data);
-                const jsonResponse = await response.json();
+                const apiResponse = await connect(data);
+                if(apiResponse.status >= 200 && apiResponse.status < 400){
+                    const jsonApiResponse = await apiResponse.json();
 
-                console.log("jsonResponse.result", jsonResponse.result);
-                handleResultData(jsonResponse.result);
+                    console.log("jsonResponse.result", jsonApiResponse.result);
+                    handleResultData(jsonApiResponse.result);
+                }
+
+                //TO DO: alerte modale utilisateur
+
             } catch (e) {
                 setError("apiServer", "connection", "Une erreur est survenue");
             }
@@ -35,8 +30,6 @@ const ComparatorForm = ({handleResultData}) => {
 
                 <div id="form-content">
                     <form className="form-inline" onSubmit={handleSubmit(onSubmit)}>
-
-                        <button type="submit" className="btn btn-primary">Convertir</button>
 
                         <input
                             type="number"
@@ -70,6 +63,8 @@ const ComparatorForm = ({handleResultData}) => {
                                 </select>
                             </div>
                         </div>
+
+                        <button type="submit" className="btn btn-primary">Convertir</button>
                     </form>
                 </div>
 
