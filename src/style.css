@@ -40,6 +40,8 @@ body .btn{
     min-width: 120px;
     min-height: 37px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 15px;
     margin-left: auto;
     margin-right: auto;

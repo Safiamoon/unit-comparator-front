@@ -38,6 +38,8 @@ const ComparatorForm = ({handleResultData}) => {
                             id="valueToConvert"
                             className="form-control "
                             placeholder="..."
+                            step='0.001'
+                            min='0'
                         />
 
                         <div className="form-group">
@@ -51,7 +53,7 @@ const ComparatorForm = ({handleResultData}) => {
                                 </select>
                             </div>
 
-                            <div className="mr-2 ml-2"><p>En</p></div>
+                            <div className="mr-2 ml-2"><p>en</p></div>
 
                             <div className="form-group">
                                 <select defaultValue="Unité de sortie" className="custom-select" ref={register}
