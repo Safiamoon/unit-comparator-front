@@ -5,7 +5,7 @@ export default class ComparatorResult extends Component {
     render = () => {
         return (
             <div id="form-result">
-                <p>{this.props.result}</p>
+                <p>{this.props.result.convertedValue}</p>
             </div>
         );
     }
