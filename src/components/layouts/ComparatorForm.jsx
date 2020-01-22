@@ -1,111 +1,108 @@
-import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { apiConvert, apiUnitsDisplay } from "../../Utils";
+import React, {useState, useEffect} from 'react';
+import {useForm} from 'react-hook-form';
+import {apiConvert, apiUnitsDisplay} from "../../Utils";
 import Select from "react-select";
 
 const options = [];
 
-const ComparatorForm = ({ handleResultData }) => {
-    const { register, handleSubmit, setError, setValue } = useForm();
-    const [values, setReactSelectValue] = useState({ selectedOption: [] });
+const ComparatorForm = ({handleResultData}) => {
+        const {register, handleSubmit, setError, setValue} = useForm();
+        const [values, setReactSelectValue] = useState({selectedOption: []});
 
-    const handleMultiChange = selectedOption => {
-        setValue("reactSelect", selectedOption);
-        setReactSelectValue({ selectedOption });
-    }
-
-    
-
-    // Similaire à componentDidMount et componentDidUpdate :
-    useEffect(() => {
+        const handleMultiChange = selectedOption => {
+            setValue("reactSelect", selectedOption);
+            setReactSelectValue({selectedOption});
+        }
         const unitsDisplay = async () => {
             try {
-                const apiResponse = await apiUnitsDisplay;
-    
-                console.log("apiResponse", apiResponse);
-    
+                const apiResponse = await apiUnitsDisplay();
+
                 if (apiResponse.status >= 200 && apiResponse.status < 400) {
-    
+
                     const jsonApiResponse = await apiResponse.json();
-    
                     console.log("jsonResponse.result", jsonApiResponse.result);
-    
+
                     jsonApiResponse.result.map(unitsPeer => {
                         console.log("unitsPeer", unitsPeer);
-                        options.push({ value: unitsPeer.inUnit, label: unitsPeer.inUnit })
+                        options.push({value: unitsPeer.inUnit, label: unitsPeer.inUnit})
                     });
-                }
-    
+
+                    console.log('options', options);              }
+
             } catch (e) {
                 setError("apiServer", "connection", "Une erreur est survenue");
             }
-        }
-    });
+        };
 
-    React.useEffect(() => {
-        register({ name: "reactSelect" }); // custom register react-select 
-    }, [register]);
+        // Similaire à componentDidMount et componentDidUpdate :
+        useEffect(() => {
+            unitsDisplay();
+        },[]);
 
-    const onSubmit = async (data) => {
-        console.log("données :", data);
+        React.useEffect(() => {
+            register({name: "reactSelect"}); // custom register react-select
+        }, [register]);
 
-        try {
-            const apiResponse = await apiConvert(data);
-            if (apiResponse.status >= 200 && apiResponse.status < 400) {
+        const onSubmit = async (data) => {
+            console.log("données :", data);
 
-                const jsonApiResponse = await apiResponse.json();
+            try {
+                const apiResponse = await apiConvert(data);
+                if (apiResponse.status >= 200 && apiResponse.status < 400) {
 
-                console.log("jsonResponse.result", jsonApiResponse.result);
-                handleResultData(jsonApiResponse.result);
+                    const jsonApiResponse = await apiResponse.json();
+
+                    console.log("jsonResponse.result", jsonApiResponse.result);
+                    handleResultData(jsonApiResponse.result);
+                }
+
+                //TO DO: alerte modale utilisateur
+
+            } catch (e) {
+                setError("apiServer", "connection", "Une erreur est survenue");
             }
+        };
 
-            //TO DO: alerte modale utilisateur
+        return (
+            <>
+                <h1 className="mb-3">Convertisseur</h1>
 
-        } catch (e) {
-            setError("apiServer", "connection", "Une erreur est survenue");
-        }
-    };
+                <div id="form-content">
+                    <form className="form-inline" onSubmit={handleSubmit(onSubmit)}>
 
-    return (
-        <>
-            <h1 className="mb-3">Convertisseur</h1>
+                        <input
+                            type="number"
+                            ref={register}
+                            name="valueToConvert"
+                            id="valueToConvert"
+                            className="form-control "
+                            placeholder="..."
+                            step='0.001'
+                            min='0'
+                        />
 
-            <div id="form-content">
-                <form className="form-inline" onSubmit={handleSubmit(onSubmit)}>
-
-                    <input
-                        type="number"
-                        ref={register}
-                        name="valueToConvert"
-                        id="valueToConvert"
-                        className="form-control "
-                        placeholder="..."
-                        step='0.001'
-                        min='0'
-                    />
-
-                    <div className="form-group">
                         <div className="form-group">
-                            <Select
-                                // defaultValue="Unité d'origine"
-                                className="custom-select"
-                                // ref={register}
-                                name="inUnit"
-                                id="inUnit"
-                                value={values.selectedOption}
-                                options={options}
-                                onChange={handleMultiChange}
-                                isMulti
-                            />
-                            {/* <option value="m2">m²</option>
+                            <div className="form-group">
+                                <Select
+                                    // defaultValue="Unité d'origine"
+                                    className="custom-select"
+                                    // ref={register}
+                                    name="inUnit"
+                                    id="inUnit"
+                                    value={values.selectedOption}
+                                    options={options}
+                                    onChange={handleMultiChange}
+                                    isMulti
+                                />
+                                {/* <option value="m2">m²</option>
                                     <option value="hectare">hectare</option>
                                     <option value="kW">kWh</option>
                                     <option value="kgCo2">kgCo2</option> */}
-                        </div>
+                            </div>
 
-                        <div className="mr-2 ml-2"><p>en</p></div>
+                            <div className="mr-2 ml-2"><p>en</p></div>
 
-                        {/* <div className="form-group">
+                            {/* <div className="form-group">
                             <Select 
                             defaultValue="Unité de sortie" 
                             className="custom-select" 
@@ -117,16 +114,16 @@ const ComparatorForm = ({ handleResultData }) => {
                                     <option value="kW">kWh</option>
                                     <option value="kgCo2">kgCo2</option>
                         </div> */}
-                    </div>
+                        </div>
 
-                    <button type="submit" className="btn btn-primary">Convertir</button>
-                </form>
-            </div>
+                        <button type="submit" className="btn btn-primary">Convertir</button>
+                    </form>
+                </div>
 
 
-        </>
+            </>
 
-    );
-}
-    ;
+        );
+    }
+;
 export default ComparatorForm;
