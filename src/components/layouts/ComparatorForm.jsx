@@ -7,27 +7,28 @@ const options = [];
 
 const ComparatorForm = ({handleResultData}) => {
         const {register, handleSubmit, setError, setValue} = useForm();
-        const [values, setReactSelectValue] = useState({selectedOption: []});
+        const [inUnitvalue, setReactSelectInUnitvalue] = useState({selectedInOption: []});
+        const [outUnitvalue, setReactSelectOutUnitvalue] = useState({selectedOutOption: []});
 
-        const handleMultiChange = selectedOption => {
-            setValue("reactSelect", selectedOption);
-            setReactSelectValue({selectedOption});
-        }
+        const handleInUnitChange = selectedInOption  => {
+            setValue("inUnit", selectedInOption);
+            setReactSelectInUnitvalue({selectedInOption});
+        };
+
+        const handleOutUnitChange = selectedOutOption  => {
+            setValue("outUnit", selectedOutOption);
+            setReactSelectOutUnitvalue({selectedOutOption});
+        };
+
         const unitsDisplay = async () => {
             try {
                 const apiResponse = await apiUnitsDisplay();
 
                 if (apiResponse.status >= 200 && apiResponse.status < 400) {
-
                     const jsonApiResponse = await apiResponse.json();
-                    console.log("jsonResponse.result", jsonApiResponse.result);
-
-                    jsonApiResponse.result.map(unitsPeer => {
-                        console.log("unitsPeer", unitsPeer);
-                        options.push({value: unitsPeer.inUnit, label: unitsPeer.inUnit})
-                    });
-
-                    console.log('options', options);              }
+                    return jsonApiResponse;
+                }
+                return null;
 
             } catch (e) {
                 setError("apiServer", "connection", "Une erreur est survenue");
@@ -36,18 +37,26 @@ const ComparatorForm = ({handleResultData}) => {
 
         // Similaire à componentDidMount et componentDidUpdate :
         useEffect(() => {
-            unitsDisplay();
-        },[]);
+            unitsDisplay()
+                .then(jsonApiResponse => {
+                    jsonApiResponse.result.map(unitsPeer => {
+                        console.log("unitsPeer", unitsPeer);
+                        return options.push({value: unitsPeer.inUnit, label: unitsPeer.inUnit})
+                    });
+                });
+        }, []);
 
         React.useEffect(() => {
-            register({name: "reactSelect"}); // custom register react-select
+            register({name: 'inUnit'}); // custom register react-select
+            register({name: 'outUnit'}); // custom register react-select
         }, [register]);
 
         const onSubmit = async (data) => {
             console.log("données :", data);
+            console.log("data.inUnit.value :", data.inUnit.value);
 
             try {
-                const apiResponse = await apiConvert(data);
+                const apiResponse = await apiConvert(data.inUnit.value, data.outUnit.value, data.valueToConvert);
                 if (apiResponse.status >= 200 && apiResponse.status < 400) {
 
                     const jsonApiResponse = await apiResponse.json();
@@ -82,38 +91,26 @@ const ComparatorForm = ({handleResultData}) => {
                         />
 
                         <div className="form-group">
-                            <div className="form-group">
-                                <Select
-                                    // defaultValue="Unité d'origine"
-                                    className="custom-select"
-                                    // ref={register}
-                                    name="inUnit"
-                                    id="inUnit"
-                                    value={values.selectedOption}
-                                    options={options}
-                                    onChange={handleMultiChange}
-                                    isMulti
-                                />
-                                {/* <option value="m2">m²</option>
-                                    <option value="hectare">hectare</option>
-                                    <option value="kW">kWh</option>
-                                    <option value="kgCo2">kgCo2</option> */}
-                            </div>
+                            <Select
+                                ref={register}
+                                name="inUnit"
+                                id="inUnit"
+                                value={inUnitvalue.selectedInOption}
+                                options={options}
+                                onChange={handleInUnitChange}
+                            />
 
                             <div className="mr-2 ml-2"><p>en</p></div>
 
-                            {/* <div className="form-group">
-                            <Select 
-                            defaultValue="Unité de sortie" 
-                            className="custom-select" 
-                            ref={register}
-                            name="outUnit" 
-                            id="outUnit"/>
-                                <option value="hectare">hectare</option>
-                                    <option value="m2">m²</option>
-                                    <option value="kW">kWh</option>
-                                    <option value="kgCo2">kgCo2</option>
-                        </div> */}
+                            <Select
+                                ref={register}
+                                name="outUnit"
+                                id="outUnit"
+                                value={outUnitvalue.selectedOutOption}
+                                options={options}
+                                onChange={handleOutUnitChange}
+                            />
+
                         </div>
 
                         <button type="submit" className="btn btn-primary">Convertir</button>
