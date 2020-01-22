@@ -3,19 +3,43 @@ import {useForm} from 'react-hook-form';
 import {apiConvert, apiUnitsDisplay} from "../../Utils";
 import Select from "react-select";
 
-const options = [];
+let inUnitOptions = [];
+let outUnitOptions = [];
 
+/**
+ *
+ * @param handleResultData
+ * @returns {*}
+ * @constructor
+ */
 const ComparatorForm = ({handleResultData}) => {
         const {register, handleSubmit, setError, setValue} = useForm();
         const [inUnitvalue, setReactSelectInUnitvalue] = useState({selectedInOption: []});
         const [outUnitvalue, setReactSelectOutUnitvalue] = useState({selectedOutOption: []});
 
-        const handleInUnitChange = selectedInOption  => {
+        const handleInUnitChange = selectedInOption => {
             setValue("inUnit", selectedInOption);
+            setReactSelectOutUnitvalue({selectedOutOption: []});
+            outUnitOptions = [];
             setReactSelectInUnitvalue({selectedInOption});
+
+            unitsDisplay()
+                .then(jsonApiResponse => {
+                    jsonApiResponse.result.map(unitsPeer => {
+                        if (selectedInOption.value === unitsPeer.inUnit) {
+                            return outUnitOptions.push({value: unitsPeer.outUnit, label: unitsPeer.outUnit})
+                        }
+                        //Todo: Manage User Alert
+                        return null;
+                    });
+                });
         };
 
-        const handleOutUnitChange = selectedOutOption  => {
+        /**
+         *
+         * @param selectedOutOption
+         */
+        const handleOutUnitChange = selectedOutOption => {
             setValue("outUnit", selectedOutOption);
             setReactSelectOutUnitvalue({selectedOutOption});
         };
@@ -40,8 +64,7 @@ const ComparatorForm = ({handleResultData}) => {
             unitsDisplay()
                 .then(jsonApiResponse => {
                     jsonApiResponse.result.map(unitsPeer => {
-                        console.log("unitsPeer", unitsPeer);
-                        return options.push({value: unitsPeer.inUnit, label: unitsPeer.inUnit})
+                        return inUnitOptions.push({value: unitsPeer.inUnit, label: unitsPeer.inUnit})
                     });
                 });
         }, []);
@@ -51,6 +74,11 @@ const ComparatorForm = ({handleResultData}) => {
             register({name: 'outUnit'}); // custom register react-select
         }, [register]);
 
+        /**
+         *
+         * @param data
+         * @returns {Promise<void>}
+         */
         const onSubmit = async (data) => {
             console.log("données :", data);
             console.log("data.inUnit.value :", data.inUnit.value);
@@ -60,7 +88,6 @@ const ComparatorForm = ({handleResultData}) => {
                 if (apiResponse.status >= 200 && apiResponse.status < 400) {
 
                     const jsonApiResponse = await apiResponse.json();
-
                     console.log("jsonResponse.result", jsonApiResponse.result);
                     handleResultData(jsonApiResponse.result);
                 }
@@ -96,7 +123,7 @@ const ComparatorForm = ({handleResultData}) => {
                                 name="inUnit"
                                 id="inUnit"
                                 value={inUnitvalue.selectedInOption}
-                                options={options}
+                                options={inUnitOptions}
                                 onChange={handleInUnitChange}
                             />
 
@@ -107,7 +134,7 @@ const ComparatorForm = ({handleResultData}) => {
                                 name="outUnit"
                                 id="outUnit"
                                 value={outUnitvalue.selectedOutOption}
-                                options={options}
+                                options={outUnitOptions}
                                 onChange={handleOutUnitChange}
                             />
 
