@@ -37,18 +37,32 @@ body .btn{
 #form-result{
     border: 1px solid #ced4da;
     border-radius: 0.25rem;
-    min-width: 120px;
-    min-height: 37px;
+    min-width: 150px;
+    min-height: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 15px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #b3cfea;
+    background: linear-gradient(45deg, #3185df 0%,rgba(66, 245, 189,0.4) 100%);
+    opacity: 0.9;
 }
+
 
 .card{
     padding: 20px;
     opacity: 0.9;
+}
+
+.result{
+    font-size: 20px;
+    font-weight: bold;
+
+}
+
+.btn-primary {
+    color: black;
+    background: linear-gradient(45deg, #2c9de9 0%,rgba(39, 126, 226, 0.4) 100%);
+    border-color: #ffffff;
 }
