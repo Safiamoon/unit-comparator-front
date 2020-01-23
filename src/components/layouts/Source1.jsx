@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import {apiUnitInfo} from "../../Utils";
-import UnitRow from "./UnitRow";
+import UnitRow from "./UnitRowContent";
+
+let rowInfos = null;
 
 export default class Source extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            rowInfos: null
+            loading: true,
+            user: null
         };
     }
 
@@ -30,14 +33,12 @@ export default class Source extends Component {
         };
 
         unitInfo().then(jsonResponse => {
-            this.setState({
-                rowInfos: jsonResponse
-            })
+            return rowInfos = jsonResponse;
         });
     }
 
     render = () => {
-        if (this.state.rowInfos) {
+        if (rowInfos) {
             return (
                 <table className="table table-striped table-bordered table-light">
                     <thead className="thead-dark">
@@ -49,7 +50,7 @@ export default class Source extends Component {
                     </thead>
                     <tbody>
                     {
-                        this.state.rowInfos.result.map(unitInfos => {
+                        rowInfos.result.map(unitInfos => {
                             return (
                                 <>
                                     <UnitRow info={unitInfos}/>
