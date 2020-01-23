@@ -62,7 +62,7 @@ body .btn{
 }
 
 .btn-primary {
-    color: black;
-    background: linear-gradient(45deg, #2c9de9 0%,rgba(39, 126, 226, 0.4) 100%);
+    color: #ffffff;
+    background: rgb(43, 160, 255);
     border-color: #ffffff;
 }
