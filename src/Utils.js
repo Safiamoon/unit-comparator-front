@@ -1,5 +1,4 @@
-import {apiConvertUrl, apiUnitsUrl} from "./constants";
-import Axios from "axios";
+import {apiConvertUrl, apiFilterUnitUrl, apiUnitsUrl} from "./constants";
 
 export const apiConvert = (inUnit, outUnit, valueToConvert) => {
     const request = new Request(
@@ -22,7 +21,7 @@ export const apiConvert = (inUnit, outUnit, valueToConvert) => {
 
 export const apiUnitsDisplay = () => {
     const request = new Request(
-        `${apiUnitsUrl}`,
+        `${apiFilterUnitUrl}`,
         {
             method: 'GET',
             headers: new Headers({
@@ -34,3 +33,20 @@ export const apiUnitsDisplay = () => {
     return fetch(request);
 }
 
+/**
+ * headers:new Headers is a parameter in my http request; "application/json" means a json content
+ * @returns {Promise<Response>}
+ */
+export const apiUnitInfo = () => {
+    const request = new Request(
+        `${apiUnitsUrl}`,
+        {
+            method: 'GET',
+            headers: new Headers({
+                'Content-Type': 'application/json'
+            }),
+        }
+    );
+
+    return fetch(request);
+}

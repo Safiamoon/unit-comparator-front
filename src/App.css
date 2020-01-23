@@ -3,7 +3,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  background: url("https://source.unsplash.com/1600x900/?number") no-repeat;
+  background: url("./pics/img1.jpg") no-repeat;
   background-size: cover;
   flex-direction:column;
 }
