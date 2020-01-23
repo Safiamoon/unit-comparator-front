@@ -51,9 +51,8 @@ export default class Source extends Component {
                     {
                         this.state.rowInfos.result.map(unitInfos => {
                             return (
-                                <>
-                                    <UnitRow info={unitInfos} key={unitInfos.unit}/>
-                                </>);
+                                <UnitRow info={unitInfos} key={unitInfos.unit}/>
+                            );
                         })
                     }
                     </tbody>
