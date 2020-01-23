@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import ComparatorForm from "./ComparatorForm";
+import ComparatorForm from "../ComparatorForm";
 import ComparatorResult from "./ComparatorResult";
 
 let MainContainer = () => {

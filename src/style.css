@@ -5,13 +5,18 @@ html, body, #root, .App, #main-container{
 body{
     background: rgba(255,255,255,0.5);
 }
-
+.navbar {
+    width:100%;
+}
+.nav-link{
+    font-size: 1.25rem;
+}
 #main-container{
     display: flex;
     justify-content: space-around;
     flex-direction: column;
     align-items: center;
-    max-height: 300px;
+    flex: 1;
 }
 
 #form-content {
